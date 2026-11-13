@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Database, Eye, FileDown, MailCheck, ShieldCheck, Sparkles, Trash2 } from "lucide-react";
+import { Database, Eye, FileDown, MailCheck, Sparkles, Trash2 } from "lucide-react";
 
+import { LegalDocument } from "@/components/legal/legal-document";
 import { getPublicSiteSettings } from "@/lib/server/site-metadata";
 
 const UPDATED_AT = "2026 年 8 月 13 日";
@@ -72,78 +72,29 @@ const sections = [
 export async function generateMetadata(): Promise<Metadata> {
     const site = await getPublicSiteSettings();
     return {
-        title: "隐私政策",
+        title: `隐私政策 | ${site.title}`,
         description: `了解 ${site.title} 如何处理账号、创作内容、AI 请求、交易和媒体数据，以及你可以行使的选择与权利。`,
         alternates: { canonical: "/privacy" },
+        robots: { index: true, follow: true },
     };
 }
 
 export default async function PrivacyPage() {
     const site = await getPublicSiteSettings();
     return (
-        <main className="app-scroll-page bg-[#f7f8fa] text-stone-800 dark:bg-[#0f1114] dark:text-stone-200">
-            <div className="mx-auto w-full max-w-5xl px-4 py-5 sm:px-8 sm:py-8">
-                <Link
-                    href="/"
-                    className="inline-flex h-9 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 text-sm font-medium text-stone-700 transition hover:border-emerald-300 hover:text-emerald-700 dark:border-white/10 dark:bg-white/5 dark:text-stone-200 dark:hover:border-emerald-500/50 dark:hover:text-emerald-200"
-                >
-                    <ArrowLeft className="size-4" />
-                    返回首页
-                </Link>
-
-                <article className="mt-5 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,.08)] dark:border-white/10 dark:bg-[#15181c] dark:shadow-black/30">
-                    <header className="bg-[#101211] px-5 py-8 text-white sm:px-9 sm:py-10">
-                        <div className="inline-flex items-center gap-2 text-sm font-medium text-emerald-200">
-                            <ShieldCheck className="size-4" />
-                            隐私与数据保护
-                        </div>
-                        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">隐私政策</h1>
-                        <p className="mt-4 max-w-3xl text-sm leading-7 text-stone-300 sm:text-base">本政策面向 {site.title} 用户，说明我们在你注册、创作、购买和管理账户时如何处理信息，以及你可以如何控制自己的数据。</p>
-                        <p className="mt-5 text-xs text-stone-400">生效及最近更新：{UPDATED_AT}</p>
-                    </header>
-
-                    <div className="grid gap-3 border-b border-stone-200 p-4 sm:grid-cols-3 sm:p-6 dark:border-white/10">
-                        {highlights.map(({ title, body, icon: Icon }) => (
-                            <section key={title} className="rounded-lg border border-stone-200 bg-stone-50 p-4 dark:border-white/10 dark:bg-white/[0.035]">
-                                <Icon className="size-5 text-emerald-600 dark:text-emerald-300" />
-                                <h2 className="mt-3 text-sm font-semibold text-stone-950 dark:text-white">{title}</h2>
-                                <p className="mt-1.5 text-xs leading-5 text-stone-600 dark:text-stone-400">{body}</p>
-                            </section>
-                        ))}
-                    </div>
-
-                    <div className="divide-y divide-stone-200 px-5 sm:px-9 dark:divide-white/10">
-                        {sections.map((section, index) => (
-                            <section key={section.title} className="grid gap-3 py-6 sm:grid-cols-[44px_minmax(0,1fr)] sm:py-8">
-                                <span className="grid size-8 place-items-center rounded-full bg-emerald-50 text-xs font-semibold text-emerald-700 dark:bg-emerald-300/10 dark:text-emerald-300">{String(index + 1).padStart(2, "0")}</span>
-                                <div>
-                                    <h2 className="text-lg font-semibold text-stone-950 dark:text-white">{section.title}</h2>
-                                    <div className="mt-3 space-y-3 text-sm leading-7 text-stone-600 dark:text-stone-400">
-                                        {section.paragraphs.map((paragraph) => (
-                                            <p key={paragraph}>{paragraph}</p>
-                                        ))}
-                                    </div>
-                                </div>
-                            </section>
-                        ))}
-                    </div>
-
-                    <footer className="grid gap-3 border-t border-stone-200 bg-stone-50 px-5 py-5 text-xs leading-5 text-stone-600 sm:grid-cols-3 sm:px-9 dark:border-white/10 dark:bg-white/[0.025] dark:text-stone-400">
-                        <span className="flex items-start gap-2">
-                            <Database className="mt-0.5 size-4 shrink-0" />
-                            业务数据按账号和具体功能范围读取。
-                        </span>
-                        <span className="flex items-start gap-2">
-                            <MailCheck className="mt-0.5 size-4 shrink-0" />
-                            验证码只用于验证当前操作并在有效期后失效。
-                        </span>
-                        <span className="flex items-start gap-2">
-                            <Trash2 className="mt-0.5 size-4 shrink-0" />
-                            删除与注销按引用和法定保留边界执行。
-                        </span>
-                    </footer>
-                </article>
-            </div>
-        </main>
+        <LegalDocument
+            kicker="隐私与数据保护"
+            title="隐私政策"
+            description={`本政策面向 ${site.title} 用户，说明我们在你注册、创作、购买和管理账户时如何处理信息，以及你可以如何控制自己的数据。`}
+            updatedAt={UPDATED_AT}
+            currentPath="/privacy"
+            highlights={highlights}
+            sections={sections}
+            notes={[
+                { icon: Database, text: "业务数据按账号和具体功能范围读取。" },
+                { icon: MailCheck, text: "验证码只用于验证当前操作并在有效期后失效。" },
+                { icon: Trash2, text: "删除与注销按引用和法定保留边界执行。" },
+            ]}
+        />
     );
 }

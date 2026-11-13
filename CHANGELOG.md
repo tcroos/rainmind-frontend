@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- [首页] 入口页改为左右分栏：左侧两行大标题、能力标签与主操作，右侧工作台式输入窗口（窗口栏、提示词、示例、模式工具条），首屏占满一屏并移除浮动装饰块。
+- [首页] 入口页背景改为液态玻璃：自研 WebGL2 双通道渲染，按 Megick `GlazeBackdrop` 的 `requiresRTT` 架构与四层工艺复刻（Pass 1：Swirl → ChromaFlow 渲染到纹理；Pass 2：FlutedGlass 从该纹理做 R/G/B 色散采样 → FilmGrain）。原版 `shaders` 库因依赖 WebGPU 且授权禁止 SaaS 使用而未引入。玻璃参数一比一：`angle 31° / frequency 8 / refraction 4 / aberration 0.61 / softness 1 / speed 0.15 / highlight 0.12 / highlightColor #ffffff / edges mirror`；颜色还原原版浅色 `#ffffff→#f0f0f0`、深色暖黑系，ChromaFlow 按 up/down/left/right 四方向色混合出油膜虹彩，玻璃表面的干涉色让静止态也有细腻炫彩。Swirl 改用笛卡尔低频噪声（去掉极坐标中心奇点，消除中间脏斑）；鼠标停手即停止注入，液体快速消散。背景层上移到首屏外壳，导航后面同样铺满；首屏内容上移、顶部留白收窄。支持浅深主题、`prefers-reduced-motion` 静态降级、页面隐藏时暂停。
+- [首页] 视觉系统收敛为暖黑底色配单一琥珀金强调：玻璃胶囊导航、环形光晕、步骤/优势卡片与 CTA 面板统一色板，浅色与深色主题保持一致。
+
 ## v0.0.7
 
 - [回归修复] 恢复短剧“本集设置”按钮收缩面板，并修复模型能力档案误隐藏 2K/4K 尺寸预设。

@@ -16,8 +16,8 @@
     display: none;
 }
 
-.billing-plans-modal .ant-modal-content,
-.billing-checkout-modal .ant-modal-content {
+.billing-plans-modal .ant-modal-container,
+.billing-checkout-modal .ant-modal-container {
     overflow: hidden;
     border: 1px solid rgba(120, 113, 108, 0.18);
     border-radius: 24px;
@@ -25,7 +25,7 @@
     box-shadow: 0 30px 90px rgba(15, 23, 42, 0.24);
 }
 
-.billing-plans-modal .ant-modal-content {
+.billing-plans-modal .ant-modal-container {
     padding: 0;
 }
 
@@ -90,8 +90,8 @@
     color: #ffe09a !important;
 }
 
-.dark .billing-plans-modal .ant-modal-content,
-.dark .billing-checkout-modal .ant-modal-content {
+.dark .billing-plans-modal .ant-modal-container,
+.dark .billing-checkout-modal .ant-modal-container {
     border-color: rgba(255, 255, 255, 0.12);
     background: #101113;
     box-shadow: 0 32px 100px rgba(0, 0, 0, 0.56);
@@ -126,8 +126,8 @@
         max-width: calc(100vw - 8px);
     }
 
-    .billing-plans-modal .ant-modal-content,
-    .billing-checkout-modal .ant-modal-content {
+    .billing-plans-modal .ant-modal-container,
+    .billing-checkout-modal .ant-modal-container {
         border-radius: 18px;
     }
 

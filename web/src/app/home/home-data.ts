@@ -56,18 +56,20 @@ export const HOME_CREATION_MODES = [
 
 export type HomeCreationMode = CreateAgentMode;
 
+/* visual 决定卡片里那块「微缩画面」画什么：纯 CSS 拼的小场景，
+ * 比一个通用图标更能说明这一步到底发生了什么，也更贴首屏液态玻璃的质感。 */
 export const HOME_STEPS = [
-    { number: "01", title: "选择场景", description: "选择合适的创作场景，明确创作类型", icon: "grid" },
-    { number: "02", title: "输入需求", description: "描述你的想法，上传必要的参考素材", icon: "edit" },
-    { number: "03", title: "生成内容", description: "AI 多模态生成高质量创作内容", icon: "rocket" },
-    { number: "04", title: "发布与分享", description: "一键发布并分享创作成果", icon: "share" },
+    { number: "01", title: "选个类型", description: "图片、视频、音频、短剧，先不用定模型", visual: "type" },
+    { number: "02", title: "说清要什么", description: "一句话就够，也能附参考图和首尾帧", visual: "prompt" },
+    { number: "03", title: "交给系统", description: "自动匹配模型、尺寸和时长，中途断了也能接着取", visual: "run" },
+    { number: "04", title: "结果直接用", description: "继续改、重新生成，或发布到作品广场", visual: "result" },
 ] as const;
 
 export const HOME_ADVANTAGES = [
-    { title: "100+ 创作模板", description: "覆盖多行业与多场景", icon: "layers" },
-    { title: "多模型协同", description: "按任务智能匹配能力", icon: "network" },
-    { title: "长任务不中断", description: "稳定续取创作进度", icon: "history" },
-    { title: "企业级存储", description: "可靠保存创作资产", icon: "cloud" },
+    { title: "改两个字就能用", description: "电商、海报、人像、分镜都有现成的", icon: "layers", visual: "templates" },
+    { title: "不用自己挑模型", description: "按需求匹配模型、尺寸与时长", icon: "network", visual: "models" },
+    { title: "关掉页面也能接着跑", description: "任务在服务端继续，回来直接看结果", icon: "history", visual: "task" },
+    { title: "作品不会丢", description: "素材和成片都在账号里，随时回看下载", icon: "cloud", visual: "storage" },
 ] as const;
 
 export const HOME_GALLERY_TABS = [{ id: "all", label: "全部" }, ...WORK_CATEGORIES.map((category) => ({ id: category, label: category }))] as const;

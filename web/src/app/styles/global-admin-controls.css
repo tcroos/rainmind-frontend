@@ -732,123 +732,26 @@
             padding: 18px;
         }
 
-        .landing-auth-modal-shell {
-            display: block;
-            min-height: auto;
-        }
-
-        .landing-auth-modal-brand {
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-            border-right: 0;
-            gap: 14px;
-            padding: 20px 22px 18px;
-        }
-
-        .dark .landing-auth-modal-brand {
-            border-bottom-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .landing-auth-modal-form {
-            padding: 20px 22px 24px;
-        }
-
-        .landing-auth-brand-logo {
-            height: 38px;
-            width: 38px;
-        }
-
-        .landing-auth-modal-copy h2 {
-            font-size: 1.35rem;
-            line-height: 1.25;
-            margin-top: 6px;
-        }
-
-        .landing-auth-modal-copy p:last-child,
-        .landing-auth-modal-bullets {
-            display: none;
-        }
-
-        .landing-auth-modal .auth-form-body {
-            row-gap: 14px;
-        }
-
-        .landing-auth-modal .auth-form-description {
-            display: none;
-        }
-
-        .landing-auth-modal .auth-form-header h2 {
-            font-size: 1.45rem;
-            margin-top: 4px;
-        }
-
-        .landing-auth-modal .auth-panel label {
-            row-gap: 6px;
-        }
-
-        .landing-auth-modal .ant-modal {
-            max-width: calc(100vw - 24px);
-        }
-
-        .landing-auth-modal .ant-modal-content {
-            max-height: calc(100dvh - 28px);
-            overflow-y: auto;
-        }
 
         .auth-page-card {
-            border-radius: 12px;
+            border-radius: 14px;
+            padding: 28px 22px 24px;
         }
 
-        .auth-panel {
+        /* 只收窄整页登录卡里的表单内边距，别再影响首屏登录弹窗 */
+        .auth-page-card .auth-panel {
             min-height: auto;
-            padding: 20px !important;
+            padding: 0;
         }
 
-        .auth-page-brand-panel {
-            min-height: 170px;
-        }
-
-        .auth-page-brand-panel a span:first-child {
-            height: 44px;
-            width: 44px;
-        }
-
-        .auth-page-brand-panel a span:last-child {
-            font-size: 1.35rem;
-        }
-
-        .auth-back-home {
-            height: 34px;
-            padding-inline: 10px;
-        }
-
-        .auth-back-home span,
-        .auth-page-feature-list {
-            display: none;
-        }
-
-        .auth-page-brand-copy h1 {
-            font-size: 1.45rem;
-            line-height: 1.25;
-        }
-
-        .auth-page-brand-description {
-            display: none;
-        }
-
-        .auth-page-card .auth-form-body {
-            row-gap: 14px;
-        }
-
-        .auth-page-card .auth-form-description {
-            display: none;
+        .auth-page-logo-link {
+            margin-bottom: 18px;
         }
 
         .auth-page-card .auth-form-header h2 {
-            font-size: 1.45rem;
-            margin-top: 4px;
+            font-size: 1.2rem;
         }
     }
-
     @media (max-width: 520px) {
         .landing-theme-toggle {
             height: 36px;

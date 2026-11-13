@@ -179,12 +179,13 @@
             radial-gradient(circle at 18% 20%, rgba(34, 211, 238, 0.12), transparent 30%), radial-gradient(circle at 84% 70%, rgba(59, 130, 246, 0.14), transparent 34%), linear-gradient(180deg, #020617 0%, #020611 44%, #031827 100%);
     }
 
+    /* 整页登录/找回密码：中性浅灰底，卡片自己承担层次，不再用紫蓝渐变 */
     .auth-page-bg {
-        background: linear-gradient(128deg, #fdfcff 0%, #f7f4ff 34%, #f3f7ff 68%, #fff9fc 100%);
+        background: #fafafa;
     }
 
     .dark .auth-page-bg {
-        background: linear-gradient(128deg, #0f1014 0%, #171621 38%, #121922 70%, #171318 100%);
+        background: #121212;
     }
 
     .auth-page-bg::before,

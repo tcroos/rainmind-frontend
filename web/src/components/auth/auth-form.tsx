@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, Gift, LockKeyhole, Mail, ShieldCheck, UserRound 
 import { App, Button, Checkbox, Input } from "antd";
 
 import { SiteLogo } from "@/components/layout/site-logo";
-import { DEFAULT_SITE_TITLE, resolveSiteTitle } from "@/lib/site-brand";
+import { DEFAULT_SITE_TITLE } from "@/lib/site-brand";
 import { usePublicSessionStore } from "@/stores/use-public-session-store";
 import { type LocalUser, useUserStore } from "@/stores/use-user-store";
 import { cn } from "@/lib/utils";
@@ -47,7 +47,6 @@ export function AuthForm({
 }: AuthFormProps) {
     const { message } = App.useApp();
     const site = usePublicSessionStore((state) => state.payload?.settings?.site) || { title: DEFAULT_SITE_TITLE, logoUrl: "/logo.svg" };
-    const siteTitle = resolveSiteTitle(site.title);
     const setUser = useUserStore((state) => state.setUser);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -57,6 +56,8 @@ export function AuthForm({
     const [totpCode, setTotpCode] = useState("");
     const [mfaRequired, setMfaRequired] = useState(false);
     const [referralCode, setReferralCode] = useState(initialReferralCode);
+    // 邀请码大多用不到，默认收起；从邀请链接进来时自动展开并填好
+    const [referralOpen, setReferralOpen] = useState(Boolean(initialReferralCode.trim()));
     const [policyAccepted, setPolicyAccepted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [sendingCode, setSendingCode] = useState(false);
@@ -131,8 +132,8 @@ export function AuthForm({
                 {headerSlot}
                 <div className="auth-form-header">
                     <p className="auth-form-kicker text-sm font-medium">{firstUser ? "首次初始化" : isRegister ? "创建创作账号" : "欢迎回来"}</p>
-                    <h2 className={cn("mt-2 font-semibold tracking-normal text-stone-950 dark:text-white", variant === "embedded" ? "text-2xl" : "text-3xl")}>{firstUser ? "创建首个管理员" : isRegister ? `注册 ${siteTitle}` : `登录 ${siteTitle}`}</h2>
-                    <p className="auth-form-description mt-3 text-sm leading-6 text-stone-500 dark:text-stone-400">{isRegister ? "保存创作项目、提示词和常用风格，从同一个入口继续。" : "继续你的电商、短剧、美颜与画布创作。"}</p>
+                    <h2 className={cn("mt-2 font-semibold tracking-normal text-stone-950 dark:text-white", variant === "embedded" ? "text-2xl" : "text-3xl")}>{firstUser ? "创建首个管理员" : isRegister ? "创建账号" : "登录"}</h2>
+                    <p className="auth-form-description mt-2.5 text-sm leading-6 text-stone-500 dark:text-stone-400">{isRegister ? "保存项目、提示词与常用风格。" : "继续你的电商、短剧、美颜与画布创作。"}</p>
                 </div>
 
                 {authError ? <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900 dark:border-red-400/20 dark:bg-red-400/10 dark:text-red-100">{authError}</div> : null}
@@ -142,7 +143,7 @@ export function AuthForm({
                 {disabled ? <div className="rounded-md border border-cyan-200 bg-cyan-50 px-4 py-3 text-sm text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/8 dark:text-cyan-50">当前站点已关闭注册，请联系管理员开通账号。</div> : null}
 
                 {firstUser ? (
-                    <label className="block space-y-3">
+                    <label className="block space-y-2">
                         <span className="text-sm font-medium text-stone-700 dark:text-stone-200">一次性安装令牌</span>
                         <Input.Password
                             size="large"
@@ -158,7 +159,7 @@ export function AuthForm({
                     </label>
                 ) : null}
 
-                <label className="block space-y-3">
+                <label className="block space-y-2">
                     <span className="text-sm font-medium text-stone-700 dark:text-stone-200">{isRegister ? "用户名" : "用户名或邮箱"}</span>
                     <Input
                         size="large"
@@ -169,17 +170,16 @@ export function AuthForm({
                             setMfaRequired(false);
                             setTotpCode("");
                         }}
-                        placeholder={isRegister ? "设置登录用户名" : "输入用户名或已绑定邮箱"}
+                        placeholder={isRegister ? "注册后不可修改" : "输入用户名或已绑定邮箱"}
                         autoComplete="username"
                         disabled={submitting || disabled}
                         required
                     />
-                    {isRegister ? <span className="block text-xs leading-5 text-stone-500 dark:text-stone-400">用于登录，注册后不可修改；创作昵称可随时调整。</span> : null}
                 </label>
 
                 {isRegister && emailRegistrationEnabled ? (
                     <div className="space-y-3">
-                        <label className="block space-y-3">
+                        <label className="block space-y-2">
                             <span className="text-sm font-medium text-stone-700 dark:text-stone-200">邮箱</span>
                             <Input
                                 size="large"
@@ -193,7 +193,7 @@ export function AuthForm({
                                 required
                             />
                         </label>
-                        <label className="block space-y-3">
+                        <label className="block space-y-2">
                             <span className="text-sm font-medium text-stone-700 dark:text-stone-200">邮箱验证码</span>
                             <Input.Search
                                 size="large"
@@ -211,29 +211,30 @@ export function AuthForm({
                 ) : null}
 
                 {isRegister ? (
-                    <label className="block space-y-3">
-                        <span className="text-sm font-medium text-stone-700 dark:text-stone-200">创作昵称</span>
-                        <Input size="large" value={displayName} onChange={(event) => setDisplayName(event.target.value)} placeholder="显示在账号菜单，可留空" autoComplete="name" disabled={submitting || disabled} />
+                    <label className="block space-y-2">
+                        <span className="text-sm font-medium text-stone-700 dark:text-stone-200">昵称（选填）</span>
+                        <Input size="large" value={displayName} onChange={(event) => setDisplayName(event.target.value)} placeholder="显示在账号菜单" autoComplete="name" disabled={submitting || disabled} />
                     </label>
                 ) : null}
 
-                {isRegister && !firstUser ? (
-                    <label className="block space-y-3">
+                {isRegister && !firstUser && referralOpen ? (
+                    <label className="block space-y-2">
                         <span className="text-sm font-medium text-stone-700 dark:text-stone-200">邀请码（选填）</span>
                         <Input
                             size="large"
                             prefix={<Gift className="size-4 text-stone-500" />}
                             value={referralCode}
                             onChange={(event) => setReferralCode(event.target.value.toUpperCase())}
-                            placeholder="通过邀请链接进入时会自动填写"
+                            placeholder="通过邀请链接进入会自动填写"
                             autoComplete="off"
                             maxLength={24}
                             disabled={submitting || disabled}
+                            autoFocus
                         />
                     </label>
                 ) : null}
 
-                <label className="block space-y-3">
+                <label className="block space-y-2">
                     <span className="text-sm font-medium text-stone-700 dark:text-stone-200">密码</span>
                     <Input.Password
                         size="large"
@@ -251,8 +252,9 @@ export function AuthForm({
                     />
                 </label>
 
+
                 {!isRegister && mfaRequired ? (
-                    <label className="block space-y-3">
+                    <label className="block space-y-2">
                         <span className="text-sm font-medium text-stone-700 dark:text-stone-200">动态验证码</span>
                         <Input
                             size="large"
@@ -298,13 +300,20 @@ export function AuthForm({
                     {firstUser ? "创建管理员并进入后台" : isRegister ? "注册并开始创作" : mfaRequired ? "验证并登录" : "登录并继续"}
                 </Button>
 
-                <div className="auth-switch-link pt-2 text-center text-sm text-stone-500 dark:text-stone-400">
+                <div className="auth-switch-link flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-2 text-center text-sm text-stone-500 dark:text-stone-400">
                     {isRegister ? (
                         <>
-                            已有账号？{" "}
-                            <Link href="/login" className="font-medium text-stone-950 hover:underline dark:text-white">
-                                直接登录
-                            </Link>
+                            <span>
+                                已有账号？{" "}
+                                <Link href="/login" className="font-medium text-stone-950 hover:underline dark:text-white">
+                                    直接登录
+                                </Link>
+                            </span>
+                            {!firstUser && !referralOpen ? (
+                                <button type="button" className="auth-referral-toggle" disabled={submitting || disabled} onClick={() => setReferralOpen(true)}>
+                                    有邀请码？
+                                </button>
+                            ) : null}
                         </>
                     ) : (
                         <>
@@ -326,36 +335,20 @@ export function AuthForm({
     if (variant === "embedded") return form;
 
     return (
-        <main className="auth-page-bg app-scroll-page flex items-center justify-center px-4 py-6 text-foreground sm:px-6 sm:py-10">
-            <div className="auth-page-card grid w-full max-w-5xl overflow-hidden border backdrop-blur md:grid-cols-[0.9fr_1fr]">
-                <section className="auth-page-brand-panel flex min-h-[220px] flex-col justify-between gap-5 border-b p-5 text-stone-950 sm:min-h-[360px] sm:gap-8 sm:p-8 md:border-b-0 md:border-r dark:text-white">
-                    <div className="flex items-start justify-between gap-4">
-                        <Link href="/" className="inline-flex items-center gap-4 text-base font-semibold">
-                            <SiteLogo logoUrl={site.logoUrl} className="size-16 sm:size-20" />
-                            <span className="text-3xl">{site.title}</span>
-                        </Link>
-                        <Link
-                            href="/"
-                            className="auth-back-home inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-stone-200 bg-white/70 px-3 text-sm font-medium text-stone-700 transition hover:border-stone-300 hover:text-stone-950 dark:border-white/10 dark:bg-white/5 dark:text-stone-200 dark:hover:border-white/20 dark:hover:text-white"
-                        >
-                            <ArrowLeft className="size-4" />
-                            <span>返回首页</span>
-                        </Link>
-                    </div>
-                    <div className="auth-page-brand-copy">
-                        <h1 className="text-balance text-2xl font-semibold tracking-normal sm:text-3xl">{firstUser ? "创建首个管理员" : isRegister ? "从一个入口开始视觉创作" : "回到你的视觉创作台"}</h1>
-                    </div>
-                    <div className="auth-page-feature-list grid gap-2 text-sm text-stone-600 dark:text-stone-300">
-                        {["电商、短剧与美颜创作", "画布项目与提示词复用", "图片、视频与音频统一创作"].map((item) => (
-                            <div key={item} className="flex items-center gap-2">
-                                <span className="auth-feature-dot size-1.5 rounded-full" />
-                                <span>{item}</span>
-                            </div>
-                        ))}
-                    </div>
-                    <p className="auth-page-brand-description max-w-sm text-sm leading-6 text-stone-500 dark:text-stone-400">登录后从首页场景入口继续创作，项目、提示词和常用风格都能随时接着使用。</p>
-                </section>
-                {form}
+        <main className="auth-page-bg app-scroll-page flex items-center justify-center px-4 py-8 text-foreground sm:px-6 sm:py-12">
+            <div className="auth-page-shell">
+                <div className="auth-page-card">
+                    {/* 和首屏登录弹窗同一套语言：Logo → 标题 → 一句说明 → 表单，单列窄卡，
+                        右侧不再堆品牌介绍与三条卖点 */}
+                    <Link href="/" aria-label={site.title} className="auth-page-logo-link">
+                        <SiteLogo logoUrl={site.logoUrl} className="auth-page-logo" />
+                    </Link>
+                    {form}
+                </div>
+                <Link href="/" className="auth-page-back">
+                    <ArrowLeft className="size-4" />
+                    <span>返回首页</span>
+                </Link>
             </div>
         </main>
     );

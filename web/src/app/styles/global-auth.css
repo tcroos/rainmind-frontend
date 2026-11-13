@@ -73,199 +73,243 @@
         padding: clamp(22px, 4vw, 58px) clamp(10px, 2vw, 32px);
     }
 
-    .landing-auth-modal .ant-modal-content {
-        background: rgba(255, 255, 255, 0.99);
-        border: 1px solid rgba(72, 67, 99, 0.13);
-        border-radius: 8px;
-        overflow: hidden;
-        padding: 0;
-        box-shadow: 0 28px 84px rgba(31, 29, 43, 0.16);
-    }
 
-    .dark .landing-auth-modal .ant-modal-content {
-        background: rgba(20, 21, 26, 0.99);
-        border-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
-    }
-
-    .landing-auth-modal .ant-modal-body {
-        padding: 0;
-    }
-
-    .landing-auth-modal .ant-modal-close {
-        color: rgba(15, 23, 42, 0.58);
-        inset-inline-end: 12px;
-        top: 12px;
-    }
-
-    .dark .landing-auth-modal .ant-modal-close {
-        color: rgba(255, 255, 255, 0.72);
-    }
-
-    .landing-auth-modal-shell {
-        background: #ffffff;
-        display: grid;
-        grid-template-columns: minmax(220px, 0.74fr) minmax(0, 1.26fr);
-        min-height: 440px;
-    }
-
-    .dark .landing-auth-modal-shell {
-        background: #14151a;
-    }
-
-    .landing-auth-modal-brand {
-        background: linear-gradient(145deg, #fbf9ff 0%, #f5f4fd 42%, #f3f7ff 72%, #fff9fc 100%);
-        border-right: 1px solid rgba(15, 23, 42, 0.08);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 30px 28px;
-    }
-
-    .dark .landing-auth-modal-brand {
-        background: linear-gradient(145deg, #1d1a23 0%, #191921 46%, #171d24 76%, #1d191e 100%);
-        border-right-color: rgba(255, 255, 255, 0.08);
-    }
-
-    .landing-auth-brand-logo {
-        height: 44px;
-        width: 44px;
-    }
-
-    .landing-auth-modal-form {
+    /* /login、/register、/install 的整页登录：与首屏弹窗同一套中性白卡语言 */
+    .auth-page-shell {
         align-items: center;
         display: flex;
-        padding: 28px 32px;
-    }
-
-    .landing-auth-modal .auth-panel {
-        background: transparent;
-        border: 0;
-        box-shadow: none;
-        backdrop-filter: none;
-    }
-
-    .landing-auth-modal .auth-panel form {
-        max-width: 340px;
-        margin-inline: auto;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 440px;
         width: 100%;
     }
 
-    .landing-auth-modal .auth-panel .ant-btn {
-        height: 44px;
-        margin-top: 6px;
-    }
-
-    .landing-auth-modal .auth-panel form > div:last-child {
-        padding-top: 6px;
-    }
-
-    .landing-auth-modal .landing-auth-modal-copy h2 {
-        font-size: 1.65rem;
-    }
-
-    .landing-auth-modal .landing-auth-modal-copy p:last-child {
-        line-height: 1.65;
-    }
-
     .auth-page-card {
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.94) !important;
-        border-color: rgba(72, 67, 99, 0.13) !important;
-        box-shadow: 0 26px 80px rgba(31, 29, 43, 0.14) !important;
-        backdrop-filter: blur(22px);
-    }
-
-    .auth-page-brand-panel {
-        background: linear-gradient(145deg, rgba(251, 249, 255, 0.98) 0%, rgba(245, 244, 253, 0.97) 42%, rgba(243, 247, 255, 0.98) 72%, rgba(255, 249, 252, 0.98) 100%);
-        border-color: rgba(72, 67, 99, 0.1);
+        background: #ffffff;
+        border: 1px solid rgba(17, 17, 17, 0.07);
+        border-radius: 16px;
+        box-shadow:
+            0 24px 64px rgba(17, 17, 17, 0.1),
+            0 1px 3px rgba(17, 17, 17, 0.04);
+        padding: 36px 32px 30px;
+        width: 100%;
     }
 
     .dark .auth-page-card {
-        background: rgba(18, 19, 24, 0.94) !important;
-        border-color: rgba(255, 255, 255, 0.09) !important;
-        box-shadow: 0 26px 90px rgba(0, 0, 0, 0.4) !important;
+        background: #171717;
+        border-color: rgba(255, 255, 255, 0.07);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
     }
 
-    .dark .auth-page-brand-panel {
-        background: linear-gradient(145deg, rgba(29, 26, 35, 0.98) 0%, rgba(25, 25, 33, 0.98) 46%, rgba(23, 29, 36, 0.98) 76%, rgba(29, 25, 30, 0.98) 100%);
-        border-color: rgba(255, 255, 255, 0.08);
+    .auth-page-logo-link {
+        display: block;
+        margin: 0 auto 22px;
+        width: 32px;
     }
 
-    .auth-reset-card {
-        background: rgba(255, 255, 255, 0.94);
-        border-color: rgba(72, 67, 99, 0.13);
-        border-radius: 8px;
-        box-shadow: 0 26px 80px rgba(31, 29, 43, 0.14);
+    .auth-page-logo {
+        background: #111111;
+        display: block;
+        height: 32px;
+        width: 32px;
     }
 
-    .dark .auth-reset-card {
-        background: rgba(18, 19, 24, 0.94);
-        border-color: rgba(255, 255, 255, 0.09);
-        box-shadow: 0 26px 90px rgba(0, 0, 0, 0.4);
+    .dark .auth-page-logo {
+        background: #f5f5f5;
     }
 
-    .auth-form-kicker,
-    .landing-auth-modal-kicker {
-        color: #71669f;
+    .auth-page-card .auth-panel {
+        backdrop-filter: none;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
     }
 
-    .dark .auth-form-kicker,
-    .dark .landing-auth-modal-kicker {
-        color: #b3aad3;
+    .auth-page-card .auth-form-header {
+        text-align: center;
     }
 
-    .auth-feature-dot,
-    .landing-auth-feature-dot {
-        background: #9b91c2;
+    /* 表头只留标题 + 一句说明，和弹窗保持一致 */
+    .auth-page-card .auth-form-kicker {
+        display: none;
     }
 
-    .dark .auth-feature-dot,
-    .dark .landing-auth-feature-dot {
-        background: #9288b5;
+    .auth-page-card .auth-form-header h2 {
+        color: #111111;
+        font-size: 1.35rem;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+        margin: 0;
+        text-wrap: balance;
+    }
+
+    .dark .auth-page-card .auth-form-header h2 {
+        color: #f5f5f5;
+    }
+
+    .auth-page-card .auth-form-description {
+        color: rgba(17, 17, 17, 0.46);
+        font-size: 13px;
+        margin: 8px auto 0;
+        max-width: 30em;
+        text-wrap: pretty;
+    }
+
+    .dark .auth-page-card .auth-form-description {
+        color: rgba(255, 255, 255, 0.44);
+    }
+
+    /* 页面版字段间距统一 20：字段少了，间距给足，整张表单才不挤 */
+    .auth-page-card .auth-form-body > * {
+        margin-block: 0;
+    }
+
+    .auth-page-card .auth-form-body > * + * {
+        margin-block-start: 20px;
+    }
+
+    /* 标签比正文小一号、颜色压淡：一屏里不再出现四行等重的黑字 */
+    .auth-page-card .auth-panel label > span:first-child {
+        color: rgba(17, 17, 17, 0.52);
+        font-size: 12.5px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+    }
+
+    .dark .auth-page-card .auth-panel label > span:first-child {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    /* 邀请码是可选项：底部一行不起眼的文字入口，展开后才出现输入框 */
+    .auth-page-card .auth-referral-toggle {
+        background: none;
+        border: 0;
+        color: rgba(17, 17, 17, 0.5);
+        cursor: pointer;
+        font-size: inherit;
+        padding: 0;
+        transition: color 160ms ease;
+    }
+
+    .auth-page-card .auth-referral-toggle:hover {
+        color: #111111;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .dark .auth-page-card .auth-referral-toggle {
+        color: rgba(255, 255, 255, 0.44);
+    }
+
+    .dark .auth-page-card .auth-referral-toggle:hover {
+        color: #f5f5f5;
+    }
+
+    .auth-page-back {
+        align-items: center;
+        color: rgba(17, 17, 17, 0.46);
+        display: inline-flex;
+        font-size: 13px;
+        gap: 6px;
+        padding: 4px 6px;
+        transition: color 160ms ease;
+    }
+
+    .auth-page-back:hover {
+        color: #111111;
+    }
+
+    .dark .auth-page-back {
+        color: rgba(255, 255, 255, 0.44);
+    }
+
+    .dark .auth-page-back:hover {
+        color: #f5f5f5;
+    }
+
+    .auth-page-title {
+        color: #111111;
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+        margin: 0;
+        text-align: center;
+    }
+
+    .dark .auth-page-title {
+        color: #f5f5f5;
+    }
+
+    .auth-page-desc {
+        color: rgba(17, 17, 17, 0.46);
+        font-size: 13px;
+        line-height: 1.7;
+        margin: 8px 0 20px;
+        text-align: center;
+        text-wrap: pretty;
+    }
+
+    .dark .auth-page-desc {
+        color: rgba(255, 255, 255, 0.44);
+    }
+
+    /* 旧设计系统遗留的紫灰强调色，统一到中性灰 */
+    .auth-form-kicker {
+        color: rgba(17, 17, 17, 0.5);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+    }
+
+    .dark .auth-form-kicker {
+        color: rgba(255, 255, 255, 0.52);
     }
 
     .auth-submit-button.ant-btn {
         height: 46px;
         margin-top: 8px;
-        border-color: #0f172a !important;
-        background: #0f172a !important;
+        border-color: #111111 !important;
+        background: #111111 !important;
         color: #ffffff !important;
     }
 
     .auth-submit-button.ant-btn:hover,
     .auth-submit-button.ant-btn:focus-visible {
-        border-color: #1e293b !important;
-        background: #1e293b !important;
+        border-color: #2a2a2a !important;
+        background: #2a2a2a !important;
         color: #ffffff !important;
     }
 
     .dark .auth-submit-button.ant-btn {
-        border-color: #f8fafc !important;
-        background: #f8fafc !important;
-        color: #0f172a !important;
+        border-color: #f5f5f5 !important;
+        background: #f5f5f5 !important;
+        color: #111111 !important;
     }
 
     .dark .auth-submit-button.ant-btn:hover,
     .dark .auth-submit-button.ant-btn:focus-visible {
-        border-color: #e2e8f0 !important;
-        background: #e2e8f0 !important;
-        color: #0f172a !important;
+        border-color: #e2e2e2 !important;
+        background: #e2e2e2 !important;
+        color: #111111 !important;
     }
 
+    /* 禁用态不用实心灰块：它和「加载中」长得一样，读起来像按钮坏了。
+       改成浅底 + 极淡描边 + 更灰的字，读成「还差一步」。 */
     .auth-submit-button.ant-btn:disabled,
     .auth-submit-button.ant-btn:disabled:hover {
         cursor: not-allowed;
-        border-color: #d6d3d1 !important;
-        background: #e7e5e4 !important;
-        color: #57534e !important;
+        border-color: rgba(17, 17, 17, 0.1) !important;
+        background: #fafafa !important;
+        color: rgba(17, 17, 17, 0.34) !important;
     }
 
     .dark .auth-submit-button.ant-btn:disabled,
     .dark .auth-submit-button.ant-btn:disabled:hover {
-        border-color: #44403c !important;
-        background: #292524 !important;
-        color: #d6d3d1 !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.035) !important;
+        color: rgba(255, 255, 255, 0.34) !important;
     }
 
     .auth-form-header {
@@ -279,4 +323,367 @@
     .auth-switch-link {
         margin-top: 4px;
     }
+}
+
+/* ── 首屏登录弹窗 ────────────────────────────────────────────────────────
+ * 必须放在 @layer utilities 之外。antd 6 的样式是运行时注入的「无层级」规则，
+ * 而层级内的声明无论在层级内特异性多高，都输给任何无层级声明 —— 这就是之前
+ * 弹窗一直是 antd 默认白卡片、旧配色，怎么改 CSS 都不生效的原因。
+ * 选择器统一用 .ant-modal.landing-auth-modal 前缀把特异性提到 0,3,0，
+ * 压过 antd 的 :where(...).ant-modal .ant-modal-container（0,2,0）。
+ */
+.ant-modal.landing-auth-modal {
+    max-width: calc(100vw - 24px);
+}
+
+.ant-modal.landing-auth-modal .ant-modal-container {
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    border-radius: 16px;
+    box-shadow:
+        0 24px 64px rgba(17, 17, 17, 0.13),
+        0 1px 3px rgba(17, 17, 17, 0.05);
+    overflow: hidden;
+    padding: 0;
+}
+
+.dark .ant-modal.landing-auth-modal .ant-modal-container {
+    background: #171717;
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.56);
+}
+
+.landing-auth-root .ant-modal-mask {
+    background: rgba(17, 17, 17, 0.36);
+    backdrop-filter: blur(4px);
+}
+
+.dark .landing-auth-root .ant-modal-mask {
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.ant-modal.landing-auth-modal .ant-modal-body {
+    padding: 0;
+}
+
+.ant-modal.landing-auth-modal .ant-modal-close {
+    border-radius: 8px;
+    color: rgba(17, 17, 17, 0.42);
+    inset-inline-end: 12px;
+    top: 12px;
+    transition:
+        background-color 160ms ease,
+        color 160ms ease;
+    z-index: 3;
+}
+
+.ant-modal.landing-auth-modal .ant-modal-close:hover {
+    background: rgba(17, 17, 17, 0.05);
+    color: #111111;
+}
+
+.dark .ant-modal.landing-auth-modal .ant-modal-close {
+    color: rgba(255, 255, 255, 0.48);
+}
+
+.dark .ant-modal.landing-auth-modal .ant-modal-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f5f5;
+}
+
+/* 纯白单列：只有两个字段的登录不需要分栏 —— 分栏只在左侧有真实视觉
+ * （产品截图 / 作品图 / 品牌摄影）时才成立，否则就是一整块空洞。
+ * 这里改成「Logo + 一句话 + 表单」的居中窄卡，和 Linear / Vercel / Notion
+ * 的登录浮层是同一套路。宽度收到 440，视线不用左右跳。 */
+.landing-auth-modal-shell {
+    background: #ffffff;
+    padding: 36px 32px 30px;
+}
+
+.dark .landing-auth-modal-shell {
+    background: #171717;
+}
+
+.landing-auth-modal-head {
+    text-align: center;
+}
+
+.landing-auth-head-logo {
+    background: #111111;
+    border-radius: 9px;
+    display: block;
+    height: 32px;
+    margin: 0 auto;
+    width: 32px;
+}
+
+.dark .landing-auth-head-logo {
+    background: #f5f5f5;
+}
+
+.landing-auth-modal-head h2 {
+    color: #111111;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 16px 0 0;
+    text-wrap: balance;
+}
+
+.dark .landing-auth-modal-head h2 {
+    color: #f5f5f5;
+}
+
+.landing-auth-modal-head p {
+    color: rgba(17, 17, 17, 0.46);
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin: 8px 0 0;
+    text-wrap: pretty;
+}
+
+.dark .landing-auth-modal-head p {
+    color: rgba(255, 255, 255, 0.44);
+}
+
+.landing-auth-modal-form {
+    padding-top: 28px;
+}
+
+.ant-modal.landing-auth-modal .auth-panel {
+    backdrop-filter: none;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.ant-modal.landing-auth-modal .auth-panel form {
+    margin-inline: auto;
+    max-width: 336px;
+    width: 100%;
+}
+
+/* 「登录 VOZEB PRO」这类标题在弹窗里是重复信息：表头已经说了品牌与场景，整段隐藏 */
+.ant-modal.landing-auth-modal .auth-form-header {
+    display: none;
+}
+
+.ant-modal.landing-auth-modal .auth-panel label > span:first-child {
+    color: rgba(17, 17, 17, 0.72);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel label > span:first-child {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-input,
+.ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper {
+    background: #ffffff;
+    border-color: rgba(17, 17, 17, 0.13);
+    border-radius: 10px;
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper:focus-within,
+.ant-modal.landing-auth-modal .auth-panel .ant-input:focus {
+    border-color: rgba(17, 17, 17, 0.55);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-input::placeholder,
+.ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper input::placeholder {
+    color: rgba(17, 17, 17, 0.34);
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input,
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.13);
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper:focus-within,
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input::placeholder,
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-input-affix-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.46);
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-btn {
+    border-radius: 10px;
+    height: 44px;
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-btn-primary {
+    background: #111111 !important;
+    border-color: #111111 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.ant-modal.landing-auth-modal .auth-panel .ant-btn-primary:not(:disabled):hover {
+    background: #2a2a2a !important;
+    border-color: #2a2a2a !important;
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-btn-primary {
+    background: #f5f5f5 !important;
+    border-color: #f5f5f5 !important;
+    color: #111111 !important;
+}
+
+.dark .ant-modal.landing-auth-modal .auth-panel .ant-btn-primary:not(:disabled):hover {
+    background: #e2e2e2 !important;
+    border-color: #e2e2e2 !important;
+    color: #111111 !important;
+}
+
+.ant-modal.landing-auth-modal .auth-switch-link {
+    color: rgba(17, 17, 17, 0.45);
+    padding-top: 2px;
+}
+
+.dark .ant-modal.landing-auth-modal .auth-switch-link {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.ant-modal.landing-auth-modal .auth-switch-link a {
+    color: #111111;
+    font-weight: 500;
+}
+
+.dark .ant-modal.landing-auth-modal .auth-switch-link a {
+    color: #f5f5f5;
+}
+
+@media (max-width: 767px) {
+    .landing-auth-modal-shell {
+        padding: 30px 20px 24px;
+    }
+
+    .landing-auth-modal-form {
+        padding-top: 22px;
+    }
+
+    .landing-auth-head-logo {
+        height: 28px;
+        width: 28px;
+    }
+
+    .landing-auth-modal-head h2 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+
+    /* 移动端空间有限，副标题交给标题本身表达，避免又一次文字堆叠 */
+    .landing-auth-modal-head p {
+        display: none;
+    }
+
+    .ant-modal.landing-auth-modal .auth-form-body {
+        row-gap: 14px;
+    }
+
+    .ant-modal.landing-auth-modal .auth-panel label {
+        row-gap: 6px;
+    }
+
+    .ant-modal.landing-auth-modal .ant-modal-container {
+        max-height: calc(100dvh - 28px);
+        overflow-y: auto;
+    }
+}
+
+
+/* ── 整页登录 / 注册 / 找回密码：antd 组件层 ─────────────────────────────
+ * 同样必须放在 @layer 之外：antd 6 的组件样式是运行时注入的无层规则，
+ * 层级内的声明压不住它（按钮高度、焦点色、边框都会被 antd 默认值盖掉）。
+ */
+.auth-page-card .auth-submit-button.ant-btn {
+    height: 46px;
+    margin-top: 20px;
+}
+
+
+/* antd 的 Checkbox 是标签页里的直接子元素，但它的 margin 是无层规则，
+ * 层级里的 `> * + *` 压不住，导致协议行紧贴密码框 */
+.auth-page-card .ant-checkbox-wrapper {
+    margin-block-start: 20px;
+}
+
+.auth-page-card .ant-checkbox-wrapper + .ant-btn {
+    margin-top: 14px;
+}
+
+.auth-page-card .ant-input,
+.auth-page-card .ant-input-affix-wrapper {
+    border-color: rgba(17, 17, 17, 0.13);
+    border-radius: 10px;
+}
+
+.auth-page-card .ant-input-affix-wrapper:focus-within,
+.auth-page-card .ant-input:focus {
+    border-color: rgba(17, 17, 17, 0.55);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.dark .auth-page-card .ant-input,
+.dark .auth-page-card .ant-input-affix-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.13);
+}
+
+.dark .auth-page-card .ant-input-affix-wrapper:focus-within,
+.dark .auth-page-card .ant-input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.auth-page-card .ant-input::placeholder,
+.auth-page-card .ant-input-affix-wrapper input::placeholder {
+    color: rgba(17, 17, 17, 0.34);
+}
+
+.dark .auth-page-card .ant-input::placeholder,
+.dark .auth-page-card .ant-input-affix-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.46);
+}
+
+.auth-page-card .ant-input-group-addon .ant-btn {
+    border-radius: 0 10px 10px 0;
+}
+
+/* 验证码按钮别和主按钮抢黑色：做成贴边的次级按钮 */
+.auth-page-card .ant-input-search-btn.ant-btn {
+    background: #f5f5f5;
+    border-color: rgba(17, 17, 17, 0.13);
+    border-radius: 0 10px 10px 0;
+    box-shadow: none;
+    color: #111111;
+    font-weight: 500;
+}
+
+.auth-page-card .ant-input-search-btn.ant-btn:not(:disabled):hover {
+    background: #ececec;
+    border-color: rgba(17, 17, 17, 0.24);
+    color: #111111;
+}
+
+.dark .auth-page-card .ant-input-search-btn.ant-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.13);
+    color: #f5f5f5;
+}
+
+.dark .auth-page-card .ant-input-search-btn.ant-btn:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
 }

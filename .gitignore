@@ -34,3 +34,7 @@ VOZEB-PRO项目缺陷检查报告.md
 scripts/capture-readme-screenshots.mjs
 **/__pycache__/
 *.pyc
+# 本地截图与工作记录，不入库
+web/.shots/
+.workbuddy/
+mock-megick-api.local.cjs

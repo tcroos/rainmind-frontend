@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
+import { PublicHeader, PublicHeaderLink } from "@/components/layout/public-header";
 import { SiteLogo } from "@/components/layout/site-logo";
 import { PublicWorkCommunityActions } from "@/components/works/public-work-community-actions";
 import { PublicWorkMediaBrowser } from "@/components/works/public-work-media-browser";
@@ -75,17 +76,17 @@ export default async function SharePage({ params }: SharePageProps) {
     if (work === null) notFound();
     if (work === undefined) {
         return (
-            <main className="app-scroll-page bg-[#f7f8fa] text-[#20242a] dark:bg-[#0f1114] dark:text-[#f3f5f7]">
+            <main className="app-scroll-page bg-background text-foreground">
                 <ShareHeader site={site} />
                 <section className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-xl flex-col items-center justify-center px-6 py-16 text-center" aria-labelledby="share-unavailable-title">
-                    <span className="grid size-12 place-items-center rounded-full border border-[#dfe3e8] bg-[#eef1f4] text-[#747d89] dark:border-[#2c3036] dark:bg-[#191d22] dark:text-[#939ca8]" aria-hidden="true">
+                    <span className="grid size-12 place-items-center rounded-full border border-border bg-muted text-muted-foreground" aria-hidden="true">
                         <DatabaseZap className="size-5" />
                     </span>
                     <h1 id="share-unavailable-title" className="mt-4 text-xl font-semibold sm:text-2xl">
                         作品分享暂不可用
                     </h1>
-                    <p className="mt-2 text-sm leading-6 text-[#747d89] dark:text-[#939ca8]">当前部署未启用 PostgreSQL，公开作品与分享数据暂时无法读取。</p>
-                    <Link href="/" className="mt-5 inline-flex h-10 items-center rounded-md bg-[#20242a] px-4 text-sm font-semibold text-white transition hover:opacity-85 dark:bg-[#f3f5f7] dark:text-[#17191d]">
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">站点数据还没有准备好，请稍后再打开这个分享链接。</p>
+                    <Link href="/" className="mt-5 inline-flex h-10 items-center rounded-md bg-foreground px-4 text-sm font-semibold text-background transition hover:opacity-85">
                         返回首页
                     </Link>
                 </section>
@@ -122,7 +123,7 @@ export default async function SharePage({ params }: SharePageProps) {
     );
 
     return (
-        <main className="app-scroll-page bg-[#f7f8fa] text-[#20242a] dark:bg-[#0f1114] dark:text-[#f3f5f7]">
+        <main className="app-scroll-page bg-background text-foreground">
             {structuredData ? <script id="creative-work-json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(structuredData) }} /> : null}
             <WorkViewTracker slug={work.slug} />
             <ShareHeader site={site} />
@@ -203,17 +204,17 @@ export default async function SharePage({ params }: SharePageProps) {
                     </aside>
                 </div>
 
-                <footer className="mt-8 flex flex-col gap-4 border-t border-[#dfe3e8] pt-6 dark:border-[#2c3036] sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-8">
+                <footer className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-8">
                     <div className="flex min-w-0 items-center gap-3">
                         <SiteLogo logoUrl={site.logoUrl || "/logo.svg"} className="size-9" />
                         <div className="min-w-0">
                             <div className="truncate text-sm font-semibold">{site.title}</div>
-                            <div className="mt-0.5 text-xs text-[#747d89] dark:text-[#939ca8]">创作、发布与分享你的作品</div>
+                            <div className="mt-0.5 text-xs text-muted-foreground">创作、发布与分享你的作品</div>
                         </div>
                     </div>
                     <Link
                         href="/create"
-                        className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-[#20242a] px-4 text-sm font-medium text-[#20242a] transition hover:bg-[#20242a] hover:text-white dark:border-[#f3f5f7] dark:text-[#f3f5f7] dark:hover:bg-[#f3f5f7] dark:hover:text-[#17191d]"
+                        className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-foreground px-4 text-sm font-medium text-foreground transition hover:bg-foreground hover:text-background"
                     >
                         创建我的作品
                         <ArrowUpRight className="size-4" />
@@ -234,15 +235,10 @@ function formatPublishedDate(value: string) {
 
 function ShareHeader({ site }: { site: SiteSettings }) {
     return (
-        <header className="sticky top-0 z-20 border-b border-[#e3e6ea] bg-white/95 backdrop-blur-xl dark:border-[#292d33] dark:bg-[#0f1114]/95">
-            <div className="mx-auto flex h-14 w-full max-w-[1600px] items-center justify-between gap-3 px-3 sm:h-16 sm:px-6">
-                <Link href="/" className="flex min-w-0 items-center gap-2.5 text-[#20242a] dark:text-[#f3f5f7]" aria-label={site.title}>
-                    <SiteLogo logoUrl={site.logoUrl || "/logo.svg"} className="size-7 sm:size-8" />
-                    <span className="truncate text-sm font-semibold sm:text-base">{site.title}</span>
-                </Link>
-                <GalleryThemeToggle />
-            </div>
-        </header>
+        <PublicHeader siteTitle={site.title} logoUrl={site.logoUrl}>
+            <PublicHeaderLink href="/gallery">作品广场</PublicHeaderLink>
+            <GalleryThemeToggle />
+        </PublicHeader>
     );
 }
 

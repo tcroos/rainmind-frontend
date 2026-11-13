@@ -60,27 +60,23 @@ export function HomeActionsProvider({ initialSite, children }: { initialSite: Ho
     return (
         <HomeActionsContext.Provider value={{ authenticated, sessionReady, site, openLogin, openBillingPlans: () => setBillingPlansOpen(true), openProtectedPath, startCreating }}>
             {children}
-            <Modal centered open={authOpen} width={740} footer={null} title={null} destroyOnHidden onCancel={() => setAuthOpen(false)} className="landing-auth-modal">
+            <Modal
+                centered
+                open={authOpen}
+                width={440}
+                footer={null}
+                title={null}
+                destroyOnHidden
+                onCancel={() => setAuthOpen(false)}
+                className="landing-auth-modal"
+                rootClassName="landing-auth-root"
+            >
                 <div className="landing-auth-modal-shell">
-                    <section className="landing-auth-modal-brand">
-                        <div className="inline-flex items-center gap-3 text-stone-950 dark:text-white">
-                            <SiteLogo logoUrl={site.logoUrl} className="landing-auth-brand-logo bg-stone-950 dark:bg-white" />
-                            <span className="text-xl font-semibold">{site.title}</span>
-                        </div>
-                        <div className="landing-auth-modal-copy">
-                            <p className="landing-auth-modal-kicker text-sm font-medium">继续创作</p>
-                            <h2 className="mt-3 text-3xl font-semibold leading-tight text-stone-950 dark:text-white">登录后回到刚才的位置</h2>
-                            <p className="mt-4 text-sm leading-7 text-stone-500 dark:text-stone-300">已输入的内容会保留，登录成功后直接进入当前创作。</p>
-                        </div>
-                        <div className="landing-auth-modal-bullets grid gap-2 text-sm text-stone-600 dark:text-stone-300">
-                            {["创作会话持续保存", "图片、视频与音频统一创作", "画布与短剧项目随时继续"].map((item) => (
-                                <div key={item} className="flex items-center gap-2">
-                                    <span className="landing-auth-feature-dot size-1.5 rounded-full" />
-                                    <span>{item}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+                    <header className="landing-auth-modal-head">
+                        <SiteLogo logoUrl={site.logoUrl} className="landing-auth-head-logo" />
+                        <h2>继续你的创作</h2>
+                        <p>已输入的内容会保留，登录后直接回到刚才的位置。</p>
+                    </header>
                     <div className="landing-auth-modal-form">
                         <AuthForm mode="login" variant="embedded" nextPath={authNextPath} className="min-h-0 bg-transparent p-0 shadow-none" />
                     </div>

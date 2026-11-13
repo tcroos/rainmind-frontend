@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
 
@@ -13,6 +13,7 @@ import styles from "./home.module.css";
 
 export function HomeHeader() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, visible: false });
     const navItemRefs = useRef<(HTMLAnchorElement | HTMLButtonElement | null)[]>([]);
     const hoveredNavIndex = useRef<number | null>(null);
@@ -39,6 +40,18 @@ export function HomeHeader() {
         return () => window.removeEventListener("resize", updateIndicator);
     }, [moveNavIndicator]);
 
+    // 页面滚出首屏后，导航从「贴在玻璃上」变成「浮在内容上」：加一点实底与投影。
+    // 滚动发生在 main.app-scroll-page 里，用捕获阶段监听才能收到它的 scroll 事件。
+    useEffect(() => {
+        const onScroll = (event: Event) => {
+            const target = event.target;
+            const offset = target instanceof Document ? window.scrollY : target instanceof HTMLElement ? target.scrollTop : 0;
+            setScrolled(offset > 12);
+        };
+        document.addEventListener("scroll", onScroll, { capture: true, passive: true });
+        return () => document.removeEventListener("scroll", onScroll, { capture: true });
+    }, []);
+
     const activate = (item: HomeNavigationItem) => {
         setMobileOpen(false);
         if (item.action === "billing") openBillingPlans();
@@ -51,7 +64,7 @@ export function HomeHeader() {
     };
 
     return (
-        <header className={styles.header}>
+        <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ""}`} data-scrolled={scrolled ? "true" : undefined}>
             <div className={styles.headerInner}>
                 <Link href="/" className={styles.brand} aria-label={`${site.title} 首页`}>
                     <SiteLogo logoUrl={site.logoUrl} className={styles.brandLogo} />

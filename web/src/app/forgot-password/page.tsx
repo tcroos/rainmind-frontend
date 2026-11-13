@@ -5,6 +5,8 @@ import Link from "next/link";
 import { App, Button, Input } from "antd";
 import { ArrowLeft, Mail } from "lucide-react";
 
+import { SiteLogo } from "@/components/layout/site-logo";
+
 export default function ForgotPasswordPage() {
     const { message } = App.useApp();
     const [email, setEmail] = useState("");
@@ -51,26 +53,28 @@ export default function ForgotPasswordPage() {
     };
 
     return (
-        <main className="auth-page-bg app-scroll-page flex items-center justify-center px-4 py-6 text-foreground sm:px-6 sm:py-10">
-            <section className="auth-reset-card w-full max-w-md border p-6 backdrop-blur">
-                <Link href="/login" className="mb-5 inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 hover:text-stone-950 dark:text-stone-300 dark:hover:text-white">
+        <main className="auth-page-bg app-scroll-page flex items-center justify-center px-4 py-8 text-foreground sm:px-6 sm:py-12">
+            <div className="auth-page-shell">
+                <section className="auth-page-card">
+                    <Link href="/" aria-label="返回首页" className="auth-page-logo-link">
+                        <SiteLogo logoUrl="/logo.svg" className="auth-page-logo" />
+                    </Link>
+                    <h1 className="auth-page-title">重置密码</h1>
+                    <p className="auth-page-desc">输入绑定邮箱，获取验证码后设置新密码。</p>
+                    <div className="space-y-4">
+                        <Input size="large" prefix={<Mail className="size-4 text-stone-500" />} value={email} onChange={(event) => setEmail(event.target.value)} placeholder="绑定邮箱" type="email" />
+                        <Input.Search size="large" value={code} onChange={(event) => setCode(event.target.value)} placeholder="6 位验证码" enterButton="获取验证码" loading={sendingCode} onSearch={() => void sendCode()} />
+                        <Input.Password size="large" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} placeholder="新密码，至少 8 位" />
+                        <Button className="auth-submit-button" type="primary" size="large" block loading={submitting} onClick={() => void resetPassword()}>
+                            重置密码
+                        </Button>
+                    </div>
+                </section>
+                <Link href="/login" className="auth-page-back">
                     <ArrowLeft className="size-4" />
-                    返回登录
+                    <span>返回登录</span>
                 </Link>
-                <div className="mb-5">
-                    <p className="auth-form-kicker text-sm font-medium">找回账号</p>
-                    <h1 className="mt-2 text-2xl font-semibold text-stone-950 dark:text-white">重置密码</h1>
-                    <p className="mt-2 text-sm leading-6 text-stone-500 dark:text-stone-400">输入绑定邮箱，获取验证码后设置新密码。</p>
-                </div>
-                <div className="space-y-4">
-                    <Input size="large" prefix={<Mail className="size-4 text-stone-500" />} value={email} onChange={(event) => setEmail(event.target.value)} placeholder="绑定邮箱" type="email" />
-                    <Input.Search size="large" value={code} onChange={(event) => setCode(event.target.value)} placeholder="6 位验证码" enterButton="获取验证码" loading={sendingCode} onSearch={() => void sendCode()} />
-                    <Input.Password size="large" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} placeholder="新密码，至少 8 位" />
-                    <Button type="primary" size="large" block loading={submitting} onClick={() => void resetPassword()}>
-                        重置密码
-                    </Button>
-                </div>
-            </section>
+            </div>
         </main>
     );
 }

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import { GalleryThemeToggle } from "@/app/gallery/gallery-theme-toggle";
-import { SiteLogo } from "@/components/layout/site-logo";
+import { PublicHeader, PublicHeaderLink } from "@/components/layout/public-header";
 import { getCurrentUser } from "@/lib/auth/session";
 import { absoluteSiteUrl, getPublicSiteSettings, siteMetadataBase } from "@/lib/server/site-metadata";
 import { getPublicCreatorPage, getPublicCreatorProfile, WorkCommunityServiceError } from "@/lib/server/work-community-service";
@@ -63,20 +63,10 @@ export default async function CreatorPage({ params }: CreatorPageProps) {
 
     return (
         <main className="app-scroll-page bg-background text-foreground">
-            <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur-xl">
-                <div className="mx-auto flex h-14 w-full max-w-[1600px] items-center justify-between gap-3 px-3 sm:h-16 sm:px-6">
-                    <Link href="/" className="flex min-w-0 items-center gap-2.5 text-foreground" aria-label={site.title}>
-                        <SiteLogo logoUrl={site.logoUrl || "/logo.svg"} className="size-7 sm:size-8" />
-                        <span className="truncate text-sm font-semibold sm:text-base">{site.title}</span>
-                    </Link>
-                    <div className="flex shrink-0 items-center gap-2">
-                        <Link href="/gallery" className="inline-flex h-9 items-center rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground transition hover:bg-muted">
-                            作品广场
-                        </Link>
-                        <GalleryThemeToggle />
-                    </div>
-                </div>
-            </header>
+            <PublicHeader siteTitle={site.title} logoUrl={site.logoUrl}>
+                <PublicHeaderLink href="/gallery">作品广场</PublicHeaderLink>
+                <GalleryThemeToggle />
+            </PublicHeader>
             {data ? (
                 <PublicCreatorView initialData={data} />
             ) : (
@@ -87,7 +77,7 @@ export default async function CreatorPage({ params }: CreatorPageProps) {
                     <h1 id="creator-unavailable-title" className="mt-4 text-xl font-semibold sm:text-2xl">
                         创作者主页暂不可用
                     </h1>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">当前部署未启用 PostgreSQL，作品发布与社区数据暂时无法读取。</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">站点数据还没有准备好，请稍后再打开这个主页。</p>
                     <Link href="/" className="mt-5 inline-flex h-10 items-center rounded-md bg-foreground px-4 text-sm font-semibold text-background transition hover:opacity-85">
                         返回首页
                     </Link>

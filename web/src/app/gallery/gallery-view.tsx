@@ -27,7 +27,7 @@ export function GalleryView({ filters, gallery, basePath, embedded = false }: { 
     return (
         <div className={cn("mx-auto w-full max-w-[1600px]", embedded ? "px-2 py-2 sm:px-6 sm:py-6" : "px-3 pb-10 pt-4 sm:px-6 sm:pb-16 sm:pt-6")}>
             <section className="flex min-w-0 items-center justify-between gap-3 pb-3 sm:pb-4">
-                <h1 className="min-w-0 text-xl font-semibold sm:text-2xl">灵感发现</h1>
+                <h1 className="min-w-0 text-xl font-semibold tracking-tight sm:text-2xl">作品广场</h1>
                 {embedded ? (
                     <Link href="/works" className="inline-flex h-9 w-fit items-center gap-2 rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground transition hover:bg-muted">
                         <Plus className="size-4" />
@@ -88,10 +88,10 @@ export function GalleryView({ filters, gallery, basePath, embedded = false }: { 
             </form>
 
             {gallery.error ? (
-                <section className="grid min-h-48 place-items-center border-b border-dashed border-border px-4 text-center">
+                <section className="grid min-h-48 place-items-center border-b border-dashed border-border px-4 text-center" title={gallery.error}>
                     <div>
-                        <p className="text-sm font-medium">作品广场暂时不可用</p>
-                        <p className="mt-1 text-xs text-muted-foreground">{gallery.error}</p>
+                        <p className="text-sm font-medium">作品暂时无法加载</p>
+                        <p className="mt-1.5 max-w-sm text-xs leading-5 text-muted-foreground">稍后再试；如果一直这样，请联系站点管理员。</p>
                     </div>
                 </section>
             ) : gallery.items.length ? (
@@ -135,17 +135,6 @@ export function GalleryView({ filters, gallery, basePath, embedded = false }: { 
             ) : null}
             <PublicWorkPreviewModal slug={previewSlug || undefined} onClose={() => setPreviewSlug("")} onOpenCreator={setCreatorUsername} />
             <PublicCreatorModal username={creatorUsername || undefined} nextPath={basePath} onClose={() => setCreatorUsername("")} />
-        </div>
-    );
-}
-
-function MediaPlaceholder({ icon, label }: { icon: React.ReactNode; label: string }) {
-    return (
-        <div className="grid size-full place-items-center text-muted-foreground">
-            <div className="flex flex-col items-center gap-2 text-xs">
-                {icon}
-                {label}
-            </div>
         </div>
     );
 }
