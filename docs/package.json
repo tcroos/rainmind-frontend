@@ -19,7 +19,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwind-merge": "^3.6.0",
-    "zbsearch": "^3.3.4"
+    "zbsearch": "^4.0.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
